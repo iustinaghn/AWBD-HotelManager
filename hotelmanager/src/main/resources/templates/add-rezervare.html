@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaugă Rezervare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            max-width: 650px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .checkbox-group {
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>➕ Adaugă Rezervare</h1>
+
+<form th:action="@{/rezervari/add}" th:object="${rezervare}" method="post">
+
+    <label>Client:</label>
+    <select th:field="*{client}" required>
+        <option th:each="c : ${clienti}" th:value="${c.id}" th:text="${c.nume}"></option>
+    </select>
+
+    <label>Cameră:</label>
+    <select th:field="*{camera}" required>
+        <option th:each="cam : ${camere}" th:value="${cam.id}" th:text="${cam.tip}"></option>
+    </select>
+
+    <label>Servicii:</label>
+    <div class="checkbox-group" th:each="s : ${servicii}">
+        <label>
+            <input type="checkbox" th:field="*{servicii}" th:value="${s.id}" />
+            <span th:text="${s.nume}"></span>
+        </label>
+    </div>
+
+    <button type="submit">💾 Salvează</button>
+</form>
+
+<a th:href="@{/rezervari}">🔙 Înapoi la listă</a>
+
+</body>
+</html>

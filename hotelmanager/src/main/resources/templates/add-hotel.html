@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaugă Hotel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f7f7f7;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Adaugă un hotel nou</h2>
+
+<form th:action="@{/hotels/add}" th:object="${hotel}" method="post">
+    <label for="nume">Nume:</label>
+    <input type="text" th:field="*{nume}" id="nume" required />
+
+    <label for="adresa">Adresă:</label>
+    <input type="text" th:field="*{adresa}" id="adresa" required />
+
+    <button type="submit">💾 Salvează hotel</button>
+</form>
+
+<a th:href="@{/hotels}">🔙 Înapoi la listă</a>
+
+</body>
+</html>

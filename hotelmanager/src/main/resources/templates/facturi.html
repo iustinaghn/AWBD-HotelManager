@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Facturi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem auto;
+            padding: 1rem;
+            max-width: 800px;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        a {
+            margin-right: 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .actions a {
+            margin-left: 10px;
+            padding: 4px 8px;
+            font-size: 14px;
+            background-color: #6c757d;
+        }
+
+        .actions a.edit {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .actions a.delete {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista Facturi</h2>
+
+<a th:href="@{/facturi/add}">➕ Adaugă Factură</a>
+
+<ul>
+    <li th:each="factura : ${facturi}">
+        ID: <span th:text="${factura.id}"></span> |
+        Total: <span th:text="${'%.2f'.formatted(factura.total) + ' lei'}"></span> |
+        Data: <span th:text="${#temporals.format(factura.dataEmitere, 'dd.MM.yyyy')}"></span> |
+        Rezervare ID: <span th:text="${factura.rezervare.id}"></span>
+
+        <span class="actions">
+            <a class="edit" th:href="@{'/facturi/edit/' + ${factura.id}}">✏️ Editează</a>
+            <a class="delete" th:href="@{'/facturi/delete/' + ${factura.id}}">🗑️ Șterge</a>
+        </span>
+    </li>
+</ul>
+
+</body>
+</html>

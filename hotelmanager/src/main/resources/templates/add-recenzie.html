@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaugă Recenzie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📝 Adaugă Recenzie</h1>
+
+<form th:action="@{/recenzii/add}" th:object="${recenzie}" method="post">
+    <label for="comentariu">Comentariu:</label>
+    <input type="text" id="comentariu" th:field="*{comentariu}" required/>
+
+    <label for="rating">Rating (1-5):</label>
+    <input type="number" id="rating" min="1" max="5" th:field="*{rating}" required/>
+
+    <label for="hotel">Hotel:</label>
+    <select id="hotel" th:field="*{hotel.id}" required>
+        <option th:each="hotel : ${hoteluri}"
+                th:value="${hotel.id}"
+                th:text="${hotel.nume}">
+        </option>
+    </select>
+
+    <button type="submit">💾 Salvează</button>
+</form>
+
+<a th:href="@{/recenzii}">🔙 Înapoi la listă</a>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Hoteluri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 900px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a.edit {
+            color: #28a745;
+            margin-left: 10px;
+        }
+
+        a.action {
+            color: #dc3545;
+            margin-left: 10px;
+        }
+
+        a.add {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            background-color: #28a745;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        a.add:hover {
+            background-color: #218838;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista hoteluri</h2>
+
+<form th:action="@{/hotels}" method="get">
+    <input type="text" name="keyword" placeholder="Caută hotel după nume" />
+    <button type="submit">Caută</button>
+</form>
+
+<a class="add" th:href="@{/hotels/add}">➕ Adaugă hotel</a>
+
+<ul>
+    <li th:each="hotel : ${hotels}">
+        <span th:text="${hotel.nume} + ' - ' + ${hotel.adresa}"></span>
+        <a class="edit" th:href="@{'/hotels/edit/' + ${hotel.id}}">✏️ Editează</a>
+        <a class="action" th:href="@{'/hotels/delete/' + ${hotel.id}}">🗑️ Șterge</a>
+    </li>
+</ul>
+
+</body>
+</html>

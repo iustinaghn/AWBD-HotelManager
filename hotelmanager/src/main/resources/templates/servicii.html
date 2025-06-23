@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Servicii</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem auto;
+            padding: 1rem;
+            max-width: 900px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .edit-btn {
+            background-color: #ffc107;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .edit-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🧰 Lista Servicii</h1>
+
+<a th:href="@{/servicii/add}">➕ Adaugă Serviciu</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Preț</th>
+        <th>Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${servicii}">
+        <td th:text="${s.nume}"></td>
+        <td th:text="${s.pret + ' lei'}"></td>
+        <td>
+            <a class="edit-btn" th:href="@{'/servicii/edit/' + ${s.id}}">✏️ Editează</a>
+            <a class="delete-btn" th:href="@{'/servicii/delete/' + ${s.id}}">🗑️ Șterge</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

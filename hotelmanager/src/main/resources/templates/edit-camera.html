@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editează Cameră</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 2rem auto;
+        padding: 2rem;
+        max-width: 600px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        margin-top: 1.5rem;
+        padding: 10px 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+<h2>✏️ Editează cameră</h2>
+
+<form th:action="@{'/camere/edit/' + ${camera.id}}" th:object="${camera}" method="post">
+  <label>Tip:</label>
+  <input type="text" th:field="*{tip}" />
+
+  <label>Preț pe noapte:</label>
+  <input type="number" step="0.01" th:field="*{pretNoapte}" />
+
+  <label>Hotel:</label>
+  <select th:field="*{hotel.id}" required>
+    <option th:each="hotel : ${hotels}"
+            th:value="${hotel.id}"
+            th:text="${hotel.nume}"
+            th:selected="${hotel.id == camera.hotel.id}">
+    </option>
+  </select>
+
+  <button type="submit">💾 Salvează</button>
+</form>
+
+</body>
+</html>

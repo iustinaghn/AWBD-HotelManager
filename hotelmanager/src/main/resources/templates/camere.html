@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Camerelor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem auto;
+            max-width: 800px;
+            background-color: #f4f4f4;
+            padding: 2rem;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select, button {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a.edit {
+            color: #007bff;
+        }
+
+        a.delete {
+            color: #dc3545;
+        }
+
+        a.add {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            background-color: #28a745;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        a.add:hover {
+            background-color: #218838;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista camerelor</h2>
+
+<form th:action="@{/camere}" method="get">
+    <input type="text" name="tip" placeholder="Caută după tip cameră" />
+    <select name="sort">
+        <option value="">-- Sortează --</option>
+        <option value="asc">Preț crescător</option>
+        <option value="desc">Preț descrescător</option>
+    </select>
+    <button type="submit">Filtrează</button>
+</form>
+
+<a class="add" th:href="@{/camere/add}">➕ Adaugă cameră</a>
+
+<ul>
+    <li th:each="camera : ${camere}">
+        <span th:text="'Tip: ' + ${camera.tip} + ', Preț: ' + ${camera.pretNoapte} + ' lei, Hotel: ' + (${camera.hotel != null ? camera.hotel.nume : 'Fără hotel'})"></span>
+        <a class="edit" th:href="@{'/camere/edit/' + ${camera.id}}">✏️ Editează</a>
+        <a class="delete" th:href="@{'/camere/delete/' + ${camera.id}}">🗑️ Șterge</a>
+    </li>
+</ul>
+
+</body>
+</html>

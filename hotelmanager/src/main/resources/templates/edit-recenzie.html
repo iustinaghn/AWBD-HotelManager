@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editează Recenzie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>✏️ Editează recenzie</h2>
+
+<form th:action="@{'/recenzii/edit/' + ${recenzie.id}}" th:object="${recenzie}" method="post">
+
+    <label>Comentariu:</label>
+    <textarea th:field="*{comentariu}"></textarea>
+
+    <label>Rating (1-5):</label>
+    <input type="number" min="1" max="5" th:field="*{rating}" required />
+
+    <label>Hotel:</label>
+    <select th:field="*{hotel}" required>
+        <option th:each="h : ${hoteluri}" th:value="${h.id}" th:text="${h.nume}"
+                th:selected="${h.id} == ${recenzie.hotel.id}"></option>
+    </select>
+
+    <button type="submit">💾 Salvează</button>
+</form>
+
+<a th:href="@{/recenzii}">⬅️ Înapoi la listă</a>
+
+</body>
+</html>

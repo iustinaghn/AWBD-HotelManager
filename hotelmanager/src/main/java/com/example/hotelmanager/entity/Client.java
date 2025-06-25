@@ -13,6 +13,9 @@ public class Client {
     private String email;
     private String telefon;
 
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private ProfilClient profilClient;
+
     public Client() {}
 
     public Long getId() {

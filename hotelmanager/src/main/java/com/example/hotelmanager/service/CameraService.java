@@ -18,14 +18,6 @@ public class CameraService {
         return cameraRepository.findAll();
     }
 
-    public List<Camera> getAllByPretAsc() {
-        return cameraRepository.findAllByOrderByPretNoapteAsc();
-    }
-
-    public List<Camera> getAllByPretDesc() {
-        return cameraRepository.findAllByOrderByPretNoapteDesc();
-    }
-
     public Camera getById(Long id) {
         return cameraRepository.findById(id).orElse(null);
     }
@@ -36,5 +28,12 @@ public class CameraService {
 
     public void delete(Long id) {
         cameraRepository.deleteById(id);
+    }
+
+    public List<Camera> getPage(List<Camera> camere, int page, int pageSize) {
+        int fromIndex = page * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, camere.size());
+        if (fromIndex > camere.size()) return List.of();
+        return camere.subList(fromIndex, toIndex);
     }
 }

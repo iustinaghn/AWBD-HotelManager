@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -26,36 +27,44 @@ public class CameraController {
     public String list(
             @RequestParam(required = false) String tip,
             @RequestParam(required = false) String sort,
+            @RequestParam(defaultValue = "0") int page,
             Model model
     ) {
         List<Camera> camere = cameraService.getAll();
 
-        // Filtrare după tip (dacă e completat)
         if (tip != null && !tip.isEmpty()) {
             camere = camere.stream()
                     .filter(c -> c.getTip().toLowerCase().contains(tip.toLowerCase()))
                     .toList();
         }
 
-        // Sortare după preț
         if ("asc".equalsIgnoreCase(sort)) {
             camere = camere.stream()
-                    .sorted((c1, c2) -> Double.compare(c1.getPretNoapte(), c2.getPretNoapte()))
+                    .sorted(Comparator.comparingDouble(Camera::getPretNoapte))
                     .toList();
         } else if ("desc".equalsIgnoreCase(sort)) {
             camere = camere.stream()
-                    .sorted((c1, c2) -> Double.compare(c2.getPretNoapte(), c1.getPretNoapte()))
+                    .sorted(Comparator.comparingDouble(Camera::getPretNoapte).reversed())
                     .toList();
         }
 
-        model.addAttribute("camere", camere);
+        int pageSize = 5;
+        int totalPages = (int) Math.ceil((double) camere.size() / pageSize);
+        List<Camera> paginated = cameraService.getPage(camere, page, pageSize);
+
+        model.addAttribute("camere", paginated);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("tip", tip);
+        model.addAttribute("sort", sort);
+
         return "camere";
     }
 
     @GetMapping("/add")
     public String form(Model model) {
         Camera camera = new Camera();
-        camera.setHotel(new Hotel()); // prevenim NullPointerException
+        camera.setHotel(new Hotel());
         model.addAttribute("camera", camera);
         model.addAttribute("hotels", hotelService.getAll());
         return "add-camera";

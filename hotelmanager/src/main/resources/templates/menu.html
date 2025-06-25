@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meniu Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f8;
+            margin: 0;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: #4f8ef7;
+            color: white;
+            width: 200px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .menu-item:hover {
+            background-color: #3a6fd9;
+            transform: scale(1.05);
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f54747;
+            width: 140px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .logout-button:hover {
+            background-color: #d63434;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<h1>Meniu Principal</h1>
+<div class="menu-container">
+    <a href="/hotels" class="menu-item">Hoteluri</a>
+    <a href="/camere" class="menu-item">Camere</a>
+    <a href="/clienti" class="menu-item">Clienți</a>
+    <a href="/rezervari" class="menu-item">Rezervări</a>
+    <a href="/facturi" class="menu-item">Facturi</a>
+    <a href="/profil_client/list" class="menu-item">Profiluri Clienți</a>
+    <a href="/serviciu/list" class="menu-item">Servicii</a>
+    <a href="/recenzie/list" class="menu-item">Recenzii</a>
+</div>
+
+<a href="/logout" class="logout-button">Logout</a>
+</body>
+</html>
